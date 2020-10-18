@@ -1,3 +1,46 @@
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+<ion-menu menuId="main-menu" contentId="menu-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title class="custom-font">Food Scout</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list> 
+      <ion-menu-toggle>
+        <ion-item routerLink="/restaurants/tabs/home">
+      <ion-icon slot="start" name="home-outline" color="light"></ion-icon>
+      <ion-label class="custom-font">Home</ion-label>
+    </ion-item>
+  </ion-menu-toggle>
+  <ion-menu-toggle>
+      <ion-item routerLink="/restaurants/tabs/discover">
+        <ion-icon slot="start" name="search" color="light"></ion-icon>
+        <ion-label class="custom-font">Discover</ion-label>
+      </ion-item>
+  </ion-menu-toggle>
+  <ion-menu-toggle>
+      <ion-item routerLink="/restaurants/tabs/favorites">
+        <ion-icon slot="start" name="heart" color="light"></ion-icon>
+        <ion-label class="custom-font">Favorites</ion-label>
+      </ion-item>
+    </ion-menu-toggle>
+    <ion-menu-toggle *ngIf="LoggedInUser.authId == 1 || LoggedInUser.authId == 3">
+      <ion-item [routerLink]="['/',panel]" [ngSwitch]="LoggedInUser.authId" >
+        <ion-icon slot="start" name="person-circle-outline" color="light"></ion-icon>
+        <ion-label class="custom-font" *ngSwitchCase="1">Admin Panel</ion-label>
+        <ion-label class="custom-font" *ngSwitchCase="3">Merchant Panel</ion-label>
+      </ion-item>
+    </ion-menu-toggle>
+  <ion-menu-toggle>
+      <ion-item (click)="onLogout()">
+        <ion-icon slot="start" name="warning" color="light"></ion-icon>
+        <ion-label>Logout</ion-label>
+      </ion-item>
+    </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+  <ion-router-outlet id="menu-content"></ion-router-outlet>
 </ion-app>

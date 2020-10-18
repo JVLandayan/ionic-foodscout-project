@@ -1,0 +1,40 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false" color="light"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Discover   
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button color="light">
+        <ion-icon slot="icon-only" name="heart-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+<ion-slides [options]="options">
+  <ion-slide *ngFor="let restaurant of loadedRestaurant" >
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" class="poster-col">
+          <img [(src)]="restaurant.rimageUrl.imgSub[0]" [routerLink]="['/','restaurants','tabs','discover',restaurant.id]">
+        </ion-col>
+        <ion-col size="12">
+          <h5 class="ion-no-margin custom-font">{{restaurant.rTitle}}</h5>
+          <p class="ion-no-margin rate custom-font">
+            <ion-icon name="star"></ion-icon> {{restaurant.rRating}}/5.0
+          </p>
+        </ion-col>  
+      </ion-row>
+    </ion-grid>
+  </ion-slide>
+
+
+</ion-slides>
+
+</ion-content>

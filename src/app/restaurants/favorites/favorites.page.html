@@ -1,0 +1,25 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false" color="light"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Favorites   
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <div class="uiFixer">
+  <ion-card *ngFor="let restaurants of loadedRestaurants" class="bgOverride ion-no-padding" [routerLink]="['/','restaurants','tabs','favorites',restaurants.id]">
+      <img [src]="restaurants.rimageUrl.imgMain">
+      <ion-card-header>
+        <ion-card-subtitle>Restaurant</ion-card-subtitle>
+        <ion-card-title>{{restaurants.rTitle}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+      {{restaurants.rDescription}}
+      </ion-card-content>
+  </ion-card>
+</div>
+</ion-content>
+

@@ -1,5 +1,7 @@
 {
   "name": "ion-project-foodscout",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

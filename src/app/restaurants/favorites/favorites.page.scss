@@ -1,0 +1,48 @@
+ion-content {
+    .ion-padding {
+        padding-top: 0 !important;
+    }
+}
+
+ion-toolbar {
+    --background: #2a2e43;
+    --ion-color-base: #2a2e43 !important;
+    }
+
+    ion-title {
+      color: white;
+    }
+
+h5, p {
+    color: white;
+}
+ion-content {
+    --background: #2a2e43;
+}
+
+.card {
+    background-color: #353a50;
+}
+
+ion-card-title {
+    color: white;
+  }
+  ion-card-subtitle {
+    color: white;
+  }
+
+  ion-card-content{
+      color: white;
+  }
+  .bgOverride {
+    --background: #353a50;
+  }
+ 
+  .uiFixer {
+      margin-top: 0px !important;
+     margin-bottom: 100px;
+  }
+
+  ion-card {
+    border-radius: 14px
+  }

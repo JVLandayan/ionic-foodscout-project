@@ -1,0 +1,43 @@
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+<ion-header class="ion-no-border">
+	<ion-toolbar>
+    <div class="back-circle"></div>
+		<ion-title class="ion-text-center custom-font">Login</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+
+<div class="ion-padding">
+<div class="logo"></div>
+
+
+  <form class="ion-padding" (ngSubmit)="onSubmit(f)" #f="ngForm">
+
+    <div class="wrap-input">
+      <input class="input" type="email" name="user-email" [(ngModel)]="emailAddress" placeholder="Email">
+      </div>
+    <div class="wrap-input">
+    <input class="input" type="text" name="user-name" [(ngModel)]="userName" placeholder="Username">
+    </div>
+
+    <div class="wrap-input">
+    <input class="input" type="password" name="user-email" [(ngModel)]="password" placeholder="Password">
+    </div>
+
+
+    <div class="container-form-btn">
+      <button class="form-btn custom-font ion-margin-horizontal" type="submit">
+      Submit
+      </button>
+    </div>   
+  </form>
+</div>
+</ion-content>
+<ion-footer class="ion-no-border">
+	<ion-toolbar>
+		<p class="ion-text-center custom-font">Already have an account? <a routerLink="/auth">Sign In</a></p>
+	</ion-toolbar>
+</ion-footer>
+

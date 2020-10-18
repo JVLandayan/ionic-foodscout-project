@@ -1,0 +1,35 @@
+ion-toolbar {
+    --background: #2a2e43;
+    --ion-color-base: #2a2e43 !important;
+    ion-title{
+        color: white;
+    }
+    }
+
+
+ion-content {
+    text-align: center;
+    img {
+        border-radius: 40px;
+    }
+
+    .desc {
+        text-align: left;
+        padding-bottom: 20px;
+
+        h4 {
+            font-weight: 900;
+        }
+
+        h6 {
+            font-weight: 400;
+            color: white;
+            line-height: .7cm;
+        }
+    }
+}
+
+.adjustPadding {
+    border-bottom: 60px;
+    padding-bottom: 60px;
+}

@@ -1,0 +1,52 @@
+.poster-col {
+    img {
+        border-radius: 40px;
+        width: 350px !important;
+        height: 500px !important;
+        object-fit: cover !important;
+    }
+}
+
+.rate {
+    font-size: 14px;
+    padding-top: 4px;
+    
+    ion-icon {
+        color: gold;
+    }
+}
+
+h5 {
+ margin-top: 4px;
+}
+
+.swiper-slide-prev {
+    opacity: .5;
+    transform: rotate(-10deg);
+}
+
+.swiper-slide-next {
+    opacity: .5;
+    transform: rotate(10deg);
+}
+
+.swiper-slide {
+    transition: .4s all;
+}
+
+ion-content {
+    --background: #2a2e43;
+}
+
+ion-toolbar {
+    --background: #2a2e43;
+    --ion-color-base: #2a2e43 !important;
+    }
+
+    ion-title {
+      color: white;
+    }
+
+h5, p {
+    color: white;
+}

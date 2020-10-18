@@ -1,0 +1,114 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false" color="light"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="custom-font">
+      Home   
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <div class="ion-padding wrapper">
+    <ion-grid class="ion-no-padding">
+      <ion-row class="ion-align-items-baseline">
+        <ion-col size="12">
+          <h4 class="title">
+            What's New?
+          </h4>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <ion-grid class="ion-no-padding">
+    <ion-row>
+      <ion-col size="12">
+        <ion-slides [options]="options">
+          <ion-slide *ngFor="let restaurant of loadednewRestaurant" [routerLink]="['/','restaurants','tabs','home',restaurant.id]">
+            <ion-card class="card">
+              <ion-card-content class="ion-text-left ion-no-padding ion-no-margin bgContent"  >
+                  <ion-img
+                    [(src)]="restaurant.rimageUrl.imgMain">
+                  </ion-img>
+                <ion-card-title class="title paddingSub custom-font">{{restaurant.rTitle}}</ion-card-title>
+                <ion-card-subtitle class="paddingSub custom-font">{{restaurant.rDescription}}</ion-card-subtitle>
+                <ion-card-subtitle class="paddingSub custom-font">{{restaurant.rPrice.min | currency:'PHP' }} - {{restaurant.rPrice.max | currency:'PHP'}}</ion-card-subtitle>
+              </ion-card-content>
+            </ion-card>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <div class="ion-padding wrapper">
+    <ion-grid class="ion-no-padding">
+      <ion-row class="ion-align-items-baseline">
+        <ion-col size="6">
+          <h4 class="title">
+            Categories
+          </h4>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-slides [options]="categories">
+          <ion-slide *ngFor="let categories of loadedCategories">
+            <ion-card class="category" [(color)]="categories.details.clrCode">
+              <ion-card-header class="ion-text-center" >
+                <ion-icon [(src)]="categories.details.svgUrl"></ion-icon>
+                <ion-card-title class="custom-font">{{categories.details.name}}</ion-card-title>
+                <ion-card-subtitle class="custom-font">{{categories.details.clrCode}}</ion-card-subtitle>
+              </ion-card-header>
+            </ion-card>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div class="ion-padding-horizontal wrapper">
+    <ion-grid class="ion-no-padding">
+      <ion-row class="ion-align-items-baseline">
+        <ion-col size="8">
+          <h4 class="title">
+            Recommended
+          </h4>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <ion-grid class="ion-no-padding">
+    <ion-row>
+      <ion-col size="12">
+        <ion-slides [options]="options">
+          <ion-slide *ngFor="let restaurant of loadedrecRestaurant" class="uiFixer" [routerLink]="['/','restaurants','tabs','home',restaurant.id]">
+            <ion-card class="card">
+              <ion-card-content class="ion-text-left ion-no-padding ion-no-margin bgContent">
+                <div class="img-wrapper">
+                  <ion-img
+                    [(src)]="restaurant.rimageUrl.imgMain">
+                  </ion-img>
+                </div>
+                <ion-card-title class="title paddingSub custom-font">{{restaurant.rTitle}}</ion-card-title>
+                <ion-card-subtitle class="paddingSub custom-font" >{{restaurant.rDescription}}</ion-card-subtitle>
+                <ion-card-subtitle class="paddingSub custom-font" >{{restaurant.rPrice.min | currency:'PHP'}} - {{restaurant.rPrice.max | currency:'PHP'}}</ion-card-subtitle>
+                <ion-card-subtitle>
+                </ion-card-subtitle>
+              </ion-card-content>
+            </ion-card>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

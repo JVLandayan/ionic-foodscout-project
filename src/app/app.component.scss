@@ -1,0 +1,19 @@
+ion-menu {
+    --ion-background-color: var(--ion-color-tertiary);
+    --ion-text-color: var(--ion-color-tertiary-contrast);
+
+    svg{}
+
+    ion-icon {
+        --ion-text-color: var(--ion-color-tertiary-contrast);
+        --ion-background-color: var(--ion-color-contrast);
+    }
+  
+    ion-toolbar {
+      --background: var(--ion-color-tertiary);
+    }
+  
+    ion-list {/* optional, but it needs when you use gradient as a background color.*/
+      background: transparent;
+    }
+  }

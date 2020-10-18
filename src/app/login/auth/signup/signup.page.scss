@@ -1,0 +1,101 @@
+.custom-font {
+    font-family: 'Josefin Sans', sans-serif;
+  }
+  
+  ion-toolbar {
+    --background: transparent;
+  
+    ion-title {
+      padding: 20px 0 46px 0;
+      font-weight: 900;
+      color: white;
+    }
+  
+    p {
+      padding: 40px 0 20px 0;
+      font-weight: 600;
+    }
+  
+  
+  
+  }
+  
+  ion-content {
+  
+    --background: #2a2e43 ;
+  
+    .back-blob {
+      z-index: -1;
+      width: 600px;
+      position: absolute;
+      left: -50%;
+      top: 0;
+    }
+  
+    form {
+      margin-top: 20px;
+    }
+
+    input::placeholder {
+        color: white;
+      }
+  
+    .wrap-input {
+      background-color: #353a50 ;
+      border-radius: 20px;
+      margin-bottom: 26px;
+      box-shadow: 0 10px 30px 0px rgba(57, 71, 82, 0.12);
+    }
+  
+    .input {
+      display: block;
+      width: 100%;
+      background: transparent;
+      font-family: Josefin Sans;
+      font-size: 16px;
+      line-height: 1.2;
+      border: none;
+      outline: none;
+      height: 46px;
+      padding: 0 20px 0 23px; 
+      color: white;
+    }
+    
+  
+    .container-form-btn {
+      display: flex;
+      justify-content: center;
+    }
+  
+    .form-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 20px;
+      min-width: 160px;
+      height: 42px;
+      background-color: #394752;
+      border-radius: 20px;
+      font-size: 14px;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      padding-top: 5px;
+      transition: all 0.4s;
+      box-shadow: 0 10px 30px 0px rgba(57, 71, 82, 0.5);
+    }
+  
+  
+  
+  }
+
+  ion-footer{
+      ion-toolbar{
+          p{
+              color: white;
+          }
+      }
+  }
+
+  app-logo{
+      align-items: center;
+  }
