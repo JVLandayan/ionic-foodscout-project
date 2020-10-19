@@ -53,10 +53,7 @@ export class RestaurantService {
       clrCode: 'success'
     }
   },
-
   ]
-
-  
   get categories() {
     return [...this._categories]
   }
@@ -67,6 +64,7 @@ export class RestaurantService {
   fRestaurantChanged = new EventEmitter <Restaurant[]>()
   fRestaurantData = new EventEmitter<Restaurant>()
   RestaurantsChanged = new EventEmitter<Restaurant[]>()
+
   private _Restaurants : Restaurant[] = [
     {
     id:'r1',
@@ -135,7 +133,6 @@ export class RestaurantService {
   }
 
   pushFavorite (dataRestaurant:Restaurant) {
-
     const compareId = this._fRestaurants.some(data=>{
       return data.id === dataRestaurant.id
     })
@@ -150,7 +147,6 @@ export class RestaurantService {
       this.fRestaurantData.emit(dataRestaurant)
     } 
   }
-
   deleteRestaurant (id: string) {
     const updatedArray = this._fRestaurants.map(restaurantData =>{
       return restaurantData.id

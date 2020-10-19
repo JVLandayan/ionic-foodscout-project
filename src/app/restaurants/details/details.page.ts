@@ -12,7 +12,7 @@ import { RestaurantService } from '../restaurant.service';
 export class DetailsPage implements OnInit {
   restaurant: Restaurant;
   updatedRestaurant: Restaurant
-  isFavorite = true
+  isFavorite = false
 
   constructor(private route: ActivatedRoute,private navCtrl: NavController, private restaurantServ: RestaurantService,private router:Router ) { }
 
@@ -22,7 +22,6 @@ export class DetailsPage implements OnInit {
         this.navCtrl.navigateBack('/restaurants/tabs/discover');
       }
       this.restaurant = this.restaurantServ.getRestaurant(paramMap.get('restaurantId'))
-      console.log(this.restaurant)
     }
     )
     this.route.queryParams.subscribe((queryParams :Params)=>{
@@ -33,9 +32,6 @@ export class DetailsPage implements OnInit {
   onFavRestaurant () {
     this.restaurantServ.pushFavorite(this.restaurant)
     this.navCtrl.back()
-    
-    this.restaurant.isFavorite = true
-    console.log(this.restaurant.isFavorite)
   }
 
 }

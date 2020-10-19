@@ -13,11 +13,11 @@
     <app-logo class="center"></app-logo>
   <form class="ion-padding" (ngSubmit)="onLogin(f)" #f="ngForm">
     <div class="wrap-input">
-    <input class="form-control input" type="text" name="user-name" [(ngModel)]="username" id="user-name" placeholder="Username" >
+    <input class="form-control input" required type="text" name="user-name" [(ngModel)]="username" id="user-name" placeholder="Username" >
     </div>
 
     <div class="wrap-input">
-    <input class="form-control input" type="password" name="user-pass" id="user-pass" [(ngModel)]="password" placeholder="Password">
+    <input class="form-control input" required type="password" name="user-pass" id="user-pass" [(ngModel)]="password" placeholder="Password">
     </div>
 
     <div class="container-form-btn">
