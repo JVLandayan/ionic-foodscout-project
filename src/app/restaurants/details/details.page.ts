@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { Restaurant } from '../restaurant.model';
 import { RestaurantService } from '../restaurant.service';
@@ -12,6 +12,7 @@ import { RestaurantService } from '../restaurant.service';
 export class DetailsPage implements OnInit {
   restaurant: Restaurant;
   updatedRestaurant: Restaurant
+  isFavorite = true
 
   constructor(private route: ActivatedRoute,private navCtrl: NavController, private restaurantServ: RestaurantService,private router:Router ) { }
 
@@ -21,13 +22,20 @@ export class DetailsPage implements OnInit {
         this.navCtrl.navigateBack('/restaurants/tabs/discover');
       }
       this.restaurant = this.restaurantServ.getRestaurant(paramMap.get('restaurantId'))
+      console.log(this.restaurant)
+    }
+    )
+    this.route.queryParams.subscribe((queryParams :Params)=>{
+      this.isFavorite = queryParams['isFavorite'] === '2'? true :false
     })
 
 }
-
   onFavRestaurant () {
     this.restaurantServ.pushFavorite(this.restaurant)
     this.navCtrl.back()
+    
+    this.restaurant.isFavorite = true
+    console.log(this.restaurant.isFavorite)
   }
 
 }

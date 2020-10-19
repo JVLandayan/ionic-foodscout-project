@@ -24,8 +24,8 @@
       {{restaurant.rRating}}/5.0
     </h4>
   </div>
-  <div *ngIf="!this.restaurant.isFavorite">
-  <ion-button color="medium" mode="ios" expand="block" shape="round" (click)="onFavRestaurant()">
+  <div>
+  <ion-button [disabled]="isFavorite" color="medium" mode="ios" expand="block" shape="round" (click)="onFavRestaurant()">
     <ion-icon slot="start" name="star-outline"></ion-icon>
     Add to favorites
   </ion-button>

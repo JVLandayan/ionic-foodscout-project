@@ -1,6 +1,6 @@
 import { EventEmitter } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { computeStackId } from '@ionic/angular/directives/navigation/stack-utils';
+import { AlertController } from '@ionic/angular';
 import { Categories } from './categories.model';
 import { Restaurant } from './restaurant.model';
 
@@ -8,6 +8,18 @@ import { Restaurant } from './restaurant.model';
   providedIn: 'root'
 })
 export class RestaurantService {
+
+  constructor(private alertCtrl : AlertController) { }
+
+  async presentAlert() {
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Failed to Add',
+      message: 'Restaurant is already at the favorites tab',
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
 
   private _categories : Categories[] = [{
     id: 1,
@@ -53,14 +65,15 @@ export class RestaurantService {
 
   private _fRestaurants : Restaurant[] = []
   fRestaurantChanged = new EventEmitter <Restaurant[]>()
+  fRestaurantData = new EventEmitter<Restaurant>()
   RestaurantsChanged = new EventEmitter<Restaurant[]>()
   private _Restaurants : Restaurant[] = [
     {
     id:'r1',
     rTitle:'Restaurant 1',
-    rDescription:'Number one fastfood in the Philippines Islands of the of the',
+    rDescription:'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis modi autem veritatis ',
     rimageUrl:{imgMain:'https://download.logo.wine/logo/Jollibee/Jollibee-Logo.wine.png'
-    , imgSub:[{},{}]},
+    , imgSub:["https://thesmartlocal.com/philippines/wp-content/uploads/2020/04/image1-2.png",]},
     rRating: 4.7,
     rPrice:{min:200,max:400},
     isFavorite: false
@@ -68,7 +81,7 @@ export class RestaurantService {
     {
       id:'r2',
       rTitle:'Restaurant 2',
-      rDescription:'Number one fastfood in the intergalactic universe',
+      rDescription:'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis modi autem veritatis ',
       rimageUrl:{imgMain:'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/20190503-delish-pineapple-baked-salmon-horizontal-ehg-450-1557771007.jpg?crop=0.721xw:0.704xh;0.131xw,0.156xh&resize=768:*', 
       imgSub:["https://thesmartlocal.com/philippines/wp-content/uploads/2020/04/image1-2.png",""]},
       rPrice:{min:5000,max:10000},
@@ -78,7 +91,7 @@ export class RestaurantService {
     {
       id:'r3',
       rTitle:'Restaurant 3',
-      rDescription:'Tagaytays number one with the tagline "Anong gentle gentle"',
+      rDescription:'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis modi autem veritatis ',
       rimageUrl:{imgMain:'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/20190503-delish-pineapple-baked-salmon-horizontal-ehg-450-1557771007.jpg?crop=0.721xw:0.704xh;0.131xw,0.156xh&resize=768:*', 
       imgSub:["https://cdn1.clickthecity.com/images/articles/content/5bbee086dbbfb3.06299918.jpg",""]},
       rPrice:{min:300,max:400},
@@ -88,7 +101,7 @@ export class RestaurantService {
     {
       id:'r4',
       rTitle:'Restaurant 4',
-      rDescription:'Number one fastfood in the intergalactic universe',
+      rDescription:'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis modi autem veritatis ',
       rimageUrl:{imgMain:'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/20190503-delish-pineapple-baked-salmon-horizontal-ehg-450-1557771007.jpg?crop=0.721xw:0.704xh;0.131xw,0.156xh&resize=768:*', 
       imgSub:["https://thesmartlocal.com/philippines/wp-content/uploads/2020/04/image1-2.png",""]},
       rPrice:{min:5000,max:10000},
@@ -98,7 +111,7 @@ export class RestaurantService {
     {
       id:'r5',
       rTitle:'Restaurant 5',
-      rDescription:'Number one fastfood in the intergalactic universe',
+      rDescription:'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis modi autem veritatis ',
       rimageUrl:{imgMain:'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/20190503-delish-pineapple-baked-salmon-horizontal-ehg-450-1557771007.jpg?crop=0.721xw:0.704xh;0.131xw,0.156xh&resize=768:*', 
       imgSub:["https://thesmartlocal.com/philippines/wp-content/uploads/2020/04/image1-2.png",""]},
       rPrice:{min:5000,max:10000},
@@ -107,7 +120,7 @@ export class RestaurantService {
     },
   ]
 
-  constructor() { }
+
 
   get favRestaurants() {
     return [...this._fRestaurants]
@@ -128,19 +141,14 @@ export class RestaurantService {
     })
 
     if(compareId){
-      console.log("Failed to add")
+      this.presentAlert()
     }
     else{
+      dataRestaurant.isFavorite!=dataRestaurant.isFavorite
       this._fRestaurants.push(dataRestaurant)
       this.fRestaurantChanged.emit(this._fRestaurants)
-    }
-
-
-
-
-    
-
-    
+      this.fRestaurantData.emit(dataRestaurant)
+    } 
   }
 
   deleteRestaurant (id: string) {

@@ -11,6 +11,7 @@ const routes: Routes = [
   {
     path: 'restaurants',
     loadChildren: () => import('./restaurants/restaurants.module').then( m => m.RestaurantsPageModule),
+    canLoad:[AuthGuard]
 
   },
   {
@@ -24,11 +25,13 @@ const routes: Routes = [
   {
     path: 'adminpanel',
     loadChildren: () => import('./adminpanel/adminpanel.module').then( m => m.AdminpanelPageModule),
+    canLoad:[AuthGuard]
 
   },
   {
     path: 'merchantpanel',
     loadChildren: () => import('./merchantpanel/merchantpanel.module').then( m => m.MerchantpanelPageModule),
+    canLoad:[AuthGuard]
   },
 ];
 

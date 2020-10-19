@@ -11,6 +11,8 @@ export class DiscoverPage implements OnInit {
 
   loadedRestaurant: Restaurant[] = []
 
+  isitFavorite = '1'
+
   constructor(private restaurantServ: RestaurantService) { }
 
   ngOnInit() {
@@ -19,6 +21,11 @@ export class DiscoverPage implements OnInit {
       this.loadedRestaurant = this.restaurantServ.recomRestaurants
     })
 
+    this.restaurantServ.fRestaurantData.subscribe((restaurantData:Restaurant)=>{
+      this.loadedRestaurant.find((loadedResto:Restaurant)=>{
+        loadedResto.isFavorite
+      })
+    })
   }
 
   options = {
