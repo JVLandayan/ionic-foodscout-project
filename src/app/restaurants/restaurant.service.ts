@@ -1,6 +1,7 @@
 import { EventEmitter } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { AuthService } from '../login/auth/auth.service';
 import { Categories } from './categories.model';
 import { Restaurant } from './restaurant.model';
 
@@ -9,7 +10,7 @@ import { Restaurant } from './restaurant.model';
 })
 export class RestaurantService {
 
-  constructor(private alertCtrl : AlertController) { }
+  constructor(private alertCtrl : AlertController, private authService: AuthService) { }
 
   async presentAlert() {
     const alert = await this.alertCtrl.create({
@@ -59,8 +60,6 @@ export class RestaurantService {
   }
 
 //Restaurant related
-
-  private _fRestaurants : Restaurant[] = []
   fRestaurantChanged = new EventEmitter <Restaurant[]>()
   fRestaurantData = new EventEmitter<Restaurant>()
   RestaurantsChanged = new EventEmitter<Restaurant[]>()
@@ -121,7 +120,7 @@ export class RestaurantService {
 
 
   get favRestaurants() {
-    return [...this._fRestaurants]
+    return [...this.authService.User.favorites]
   }
 
   get recomRestaurants () {
@@ -133,7 +132,7 @@ export class RestaurantService {
   }
 
   pushFavorite (dataRestaurant:Restaurant) {
-    const compareId = this._fRestaurants.some(data=>{
+    const compareId = this.authService.User.favorites.some(data=>{
       return data.id === dataRestaurant.id
     })
 
@@ -141,16 +140,14 @@ export class RestaurantService {
       this.presentAlert()
     }
     else{
-      dataRestaurant.isFavorite!=dataRestaurant.isFavorite
-      this._fRestaurants.push(dataRestaurant)
-      this.fRestaurantChanged.emit(this._fRestaurants)
-      this.fRestaurantData.emit(dataRestaurant)
+      this.authService.User.favorites.push(dataRestaurant)
+      this.fRestaurantChanged.emit(this.authService.User.favorites)
     } 
   }
   deleteRestaurant (id: string) {
-    const updatedArray = this._fRestaurants.map(restaurantData =>{
+    const updatedArray = this.authService.User.favorites.map(restaurantData =>{
       return restaurantData.id
     }).indexOf(id)
-    this.fRestaurantChanged.emit(this._fRestaurants.splice(updatedArray,1))
+    this.fRestaurantChanged.emit(this.authService.User.favorites.splice(updatedArray,1))
   }
 }

@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../login/auth/auth.service';
+import { User } from '../login/auth/User.model';
+import { Restaurant } from '../restaurants/restaurant.model';
+import { RestaurantService } from '../restaurants/restaurant.service';
 
 @Component({
   selector: 'app-merchantpanel',
@@ -6,10 +10,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./merchantpanel.page.scss'],
 })
 export class MerchantpanelPage implements OnInit {
+  constructor(private authService: AuthService) { }
 
-  constructor() { }
+   editInfo : boolean = true
 
-  ngOnInit() {
+  ownedRestaurant : Restaurant = this.authService.User.ownRestaurant
+
+  ngOnInit() { 
   }
 
+
+  submit() {
+
+  }
+
+  edit () {
+    this.editInfo = false
+  }
 }

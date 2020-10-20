@@ -16,7 +16,7 @@
   <form class="ion-padding" (ngSubmit)="onSubmit(f)" #f="ngForm">
 
     <div class="wrap-input">
-      <input class="input" type="email" required name="user-email" [(ngModel)]="emailAddress" placeholder="Email">
+      <input class="input" type="email" email required name="user-email" [(ngModel)]="emailAddress" placeholder="Email">
       </div>
     <div class="wrap-input">
     <input class="input" type="text" required name="user-name" [(ngModel)]="userName" placeholder="Username">
@@ -28,7 +28,7 @@
 
 
     <div class="container-form-btn">
-      <button class="form-btn custom-font ion-margin-horizontal" type="submit">
+      <button class="form-btn custom-font ion-margin-horizontal" [disabled]="!f.valid" type="submit">
       Submit
       </button>
     </div>   

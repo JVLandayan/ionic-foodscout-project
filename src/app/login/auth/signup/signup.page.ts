@@ -25,7 +25,10 @@ export class SignupPage implements OnInit {
       userId: Math.floor(Math.random() * 90000) + 10000,
       email: this.emailAddress,
       username: this.userName,
-      password: this.password
+      password: this.password,
+      favorites: [],
+      ownRestaurant:null,
+      manage: null
     }
     this.authService.pushUser(this.userData)
     this.router.navigateByUrl('auth')

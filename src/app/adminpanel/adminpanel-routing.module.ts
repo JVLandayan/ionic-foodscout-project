@@ -5,8 +5,19 @@ import { AdminpanelPage } from './adminpanel.page';
 
 const routes: Routes = [
   {
-    path: '',
-    component: AdminpanelPage
+    path: 'tabs',
+    component: AdminpanelPage,
+    children: [
+      {
+        path: 'manage',
+        children:[
+          {
+            path:'',
+            loadChildren: () => import('./manage/manage.module').then (m=>m.ManagePageModule)
+          }
+        ]
+      }
+    ]
   }
 ];
 

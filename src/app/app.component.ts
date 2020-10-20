@@ -36,11 +36,14 @@ export class AppComponent implements OnInit {
   }
 
   LoggedInUser: User = {
-    authId : null,
-    userId : null,
-    email : null,
+    authId: null,
+    userId: null,
+    email: null,
     username: null,
-    password: null
+    password: null,
+    favorites: null,
+    ownRestaurant: null,
+    manage:null
   }
 
   userAuth:string
@@ -49,6 +52,7 @@ export class AppComponent implements OnInit {
   ngOnInit () {
     this.authServ.userChanged.subscribe((user: User)=>{
       this.LoggedInUser = user
+      console.log(this.LoggedInUser)
       if (this.LoggedInUser.authId == 1){
         this.panel="adminpanel"
       }
