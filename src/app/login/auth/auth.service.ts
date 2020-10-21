@@ -1,4 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { computeStackId } from '@ionic/angular/directives/navigation/stack-utils';
+import { Restaurant } from 'src/app/restaurants/restaurant.model';
 import { User } from './User.model';
 
 @Injectable({
@@ -9,6 +11,7 @@ export class AuthService {
   private _activatedUser : User
   userChanged = new EventEmitter <User>()
   userlistChanged = new EventEmitter <User[]>()
+  merchantPost = new EventEmitter <User>()
   private _userCredentials : User[] = [
     { 
       authId: 1,
@@ -18,6 +21,7 @@ export class AuthService {
       password: 'admin',
       favorites: [],
       ownRestaurant: null,
+      tempUpdate: null
     },
     {
       authId: 2,
@@ -27,6 +31,7 @@ export class AuthService {
       password: 'user',
       favorites: [],
       ownRestaurant: null,
+      tempUpdate: null
     },
     {
       authId: 3,
@@ -45,7 +50,7 @@ export class AuthService {
         rPrice:{min:700,max:1000},
         isFavorite: false
         },
-
+        tempUpdate: null
     }
   ]
 
@@ -86,6 +91,19 @@ export class AuthService {
     this._userCredentials.push(signupData)
     this.userlistChanged.emit(this._userCredentials)
     console.log(this._userCredentials)
+  }
+
+  postTemp (postData: Restaurant) {
+    this._activatedUser.tempUpdate = postData
+    this.merchantPost.emit(this._activatedUser)
+    const oldData = this._userCredentials.findIndex((user:User)=>{
+      return user.userId === this._activatedUser.userId
+    })
+    this._userCredentials.splice(oldData,1,this._activatedUser)
+  }
+
+  get listUsers () {
+    return this._userCredentials
   }
 
 }

@@ -9,6 +9,7 @@ export class AdminpanelPage implements OnInit {
 
   constructor() { }
 
+
   ngOnInit() {
   }
 

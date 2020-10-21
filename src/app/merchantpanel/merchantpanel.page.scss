@@ -14,3 +14,16 @@ h5, p {
 ion-content {
     --background: #2a2e43;
 }
+div {
+    ion-input{
+        .title {
+            font-size: 24px;
+        }
+    }
+
+    ion-textarea {
+        .description{
+            font-size: 16px;
+        }
+    }
+}

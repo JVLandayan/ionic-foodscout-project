@@ -1,0 +1,23 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false" color="light"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="custom-font">
+      Delete   
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" >
+
+    <div id="container">
+      <ion-card *ngFor="let pic of picture">
+        <img [src]="pic" alt="">
+        <ion-card-content>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+</ion-content>
+

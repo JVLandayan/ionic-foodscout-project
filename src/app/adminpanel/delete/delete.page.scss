@@ -1,0 +1,33 @@
+
+
+h5 {
+ margin-top: 4px;
+}
+
+ion-content {
+    --background: #2a2e43;
+}
+
+ion-toolbar {
+    --background: #2a2e43;
+    --ion-color-base: #2a2e43 !important;
+    }
+
+    ion-title {
+      color: white;
+    }
+
+h5, p {
+    color: white;
+}
+
+#container {
+    columns: 2;
+    column-gap: 10px;
+    ion-card {
+        width: 100%;
+        margin: 0 0 10px 0 ;
+        break-inside: avoid;
+        
+    }
+}

@@ -1,9 +1,16 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>manage</ion-title>
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false" color="light"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="custom-font" *ngFor="let users of filtered">
+      <p>{{users.username}}/{{users.userId}}</p>   
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content fullscreen>
+  <h1 *ngIf="filtered.length===0">Oops. You don't have any requests right now</h1>
+
 
 </ion-content>

@@ -27,13 +27,20 @@
         <ion-label class="custom-font">Favorites</ion-label>
       </ion-item>
     </ion-menu-toggle>
-    <ion-menu-toggle *ngIf="LoggedInUser.authId == 1 || LoggedInUser.authId == 3">
-      <ion-item [routerLink]="['/',panel]" [ngSwitch]="LoggedInUser.authId" >
+
+    <ion-menu-toggle routerLink="adminpanel/admin/manage" *ngIf="LoggedInUser.authId == 1">
+      <ion-item>
         <ion-icon slot="start" name="person-circle-outline" color="light"></ion-icon>
-        <ion-label class="custom-font" *ngSwitchCase="1">Admin Panel</ion-label>
-        <ion-label class="custom-font" *ngSwitchCase="3">Merchant Panel</ion-label>
+        <ion-label class="custom-font">Admin Panel</ion-label>
       </ion-item>
     </ion-menu-toggle>
+    <ion-menu-toggle [routerLink]="['/','merchantpanel']" *ngIf="LoggedInUser.authId == 3">
+      <ion-item>
+        <ion-icon slot="start" name="person-circle-outline" color="light"></ion-icon>
+        <ion-label class="custom-font" >Merchant Panel</ion-label>
+      </ion-item>
+    </ion-menu-toggle>
+
   <ion-menu-toggle>
       <ion-item (click)="onLogout()">
         <ion-icon slot="start" name="warning" color="light"></ion-icon>

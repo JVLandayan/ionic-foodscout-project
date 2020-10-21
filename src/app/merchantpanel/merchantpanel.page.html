@@ -4,38 +4,34 @@
       <ion-menu-button autoHide="false" color="light"></ion-menu-button>
     </ion-buttons>
     <ion-title class="custom-font">
-      Details   
+      Merchant Panel   
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content fullsreen color="tertiary">
-
-  <form action="">
-  <div class="ion-padding adjustPadding">
+  
+<div class="ion-padding adjustPadding">
     <img [src]="ownedRestaurant.rimageUrl.imgSub[0]" class="ion-padding-horizontal">
-<div class="ion-padding">
+  <div class="ion-padding">
+    
   <div class="desc">
-    <h4 class="custom-font">
-      {{ownedRestaurant.rTitle}}
-    </h4>
-    <h6 class="custom-font">
-      {{ownedRestaurant.rDescription}} 
-    </h6>
-    <h4 class="custom-font">
+    <ion-input type="text" class="custom-font title" [readonly]="editInfo" [(ngModel)]="postTitle" ></ion-input>
+    <ion-textarea type="text" class="custom-font description" [(ngModel)]="postDescription" [readonly]="editInfo" ></ion-textarea>
+    <h4 class="custom-font" *ngIf="editInfo">
       {{ownedRestaurant.rRating}}/5.0
     </h4>
   </div>
-  <div>
-    <ion-button color="medium" mode="ios" expand="block" shape="round" (click)="edit()"  *ngIf="editInfo">
-      Edit
-    </ion-button>
-  <ion-button color="medium" mode="ios" expand="block" shape="round" (click)="submit()" *ngIf="!editInfo">
-    Submit
-  </ion-button>
-</div>  
+
+    <div>
+      <ion-button color="medium" mode="ios" expand="block" shape="round" (click)="edit()"  *ngIf="editInfo">
+        Edit
+      </ion-button>
+      <ion-button color="medium" mode="ios" expand="block" shape="round" (click)="submit()" *ngIf="!editInfo">
+        Submit
+      </ion-button>
     </div>
-  </div>
-</form>
+    </div>
+</div>
 
 </ion-content>

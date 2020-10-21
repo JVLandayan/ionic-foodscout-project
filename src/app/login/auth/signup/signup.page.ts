@@ -28,7 +28,7 @@ export class SignupPage implements OnInit {
       password: this.password,
       favorites: [],
       ownRestaurant:null,
-      manage: null
+      tempUpdate : null
     }
     this.authService.pushUser(this.userData)
     this.router.navigateByUrl('auth')

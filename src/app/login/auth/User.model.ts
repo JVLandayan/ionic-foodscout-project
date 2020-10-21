@@ -9,5 +9,6 @@ export class User {
     public password: string,
     public favorites : Restaurant[],
     public ownRestaurant : Restaurant,
+    public tempUpdate :Restaurant
     ) {}
 }   

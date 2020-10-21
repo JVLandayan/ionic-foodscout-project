@@ -36,14 +36,14 @@ export class AppComponent implements OnInit {
   }
 
   LoggedInUser: User = {
-    authId: null,
+    authId: 3,
     userId: null,
     email: null,
     username: null,
     password: null,
     favorites: null,
     ownRestaurant: null,
-    manage:null
+    tempUpdate: null
   }
 
   userAuth:string

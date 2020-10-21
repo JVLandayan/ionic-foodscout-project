@@ -20,12 +20,6 @@ export class DiscoverPage implements OnInit {
     this.restaurantServ.RestaurantsChanged.subscribe(()=>{
       this.loadedRestaurant = this.restaurantServ.recomRestaurants
     })
-
-    this.restaurantServ.fRestaurantData.subscribe((restaurantData:Restaurant)=>{
-      this.loadedRestaurant.find((loadedResto:Restaurant)=>{
-        loadedResto.isFavorite
-      })
-    })
   }
 
   options = {

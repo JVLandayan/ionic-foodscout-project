@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: ManagePage
+  },
+  {
+    path: 'postsdetail',
+    loadChildren: () => import('./postsdetail/postsdetail.module').then( m => m.PostsdetailPageModule)
   }
 ];
 
