@@ -1,10 +1,8 @@
-import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { AdminService } from '../adminpanel/admin.service';
+import { NavController } from '@ionic/angular';
 import { AuthService } from '../login/auth/auth.service';
-import { User } from '../login/auth/User.model';
 import { Restaurant } from '../restaurants/restaurant.model';
-import { RestaurantService } from '../restaurants/restaurant.service';
+
 
 @Component({
   selector: 'app-merchantpanel',
@@ -12,11 +10,11 @@ import { RestaurantService } from '../restaurants/restaurant.service';
   styleUrls: ['./merchantpanel.page.scss'],
 })
 export class MerchantpanelPage implements OnInit {
-  constructor(private authService: AuthService, private adminService: AdminService) { }
+  constructor(private authService: AuthService, private navCtrl: NavController) { }
 
    editInfo : boolean = true
    postDescription = this.authService.User.ownRestaurant.rDescription
-  ownedRestaurant : Restaurant = this.authService.User.ownRestaurant
+   ownedRestaurant : Restaurant = this.authService.User.ownRestaurant
    postTitle = this.authService.User.ownRestaurant.rTitle
    post = this.authService.User.ownRestaurant.rDescription
 
@@ -36,6 +34,7 @@ export class MerchantpanelPage implements OnInit {
       isFavorite: this.ownedRestaurant.isFavorite
     }
     this.authService.postTemp(postUpdate)
+    this.navCtrl.back()
   }
 
   edit () {

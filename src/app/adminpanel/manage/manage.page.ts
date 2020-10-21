@@ -11,6 +11,11 @@ export class ManagePage implements OnInit {
 
   constructor(private authService :AuthService) { }
 
+  slideOpts = {
+    initialSlide: 0,
+    speed: 400
+  }
+
   loadedUsers: User[] = this.authService.listUsers.slice()
   filtered = this.loadedUsers.filter(users=>{
     return users.tempUpdate !== null

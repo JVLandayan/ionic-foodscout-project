@@ -3,14 +3,36 @@
     <ion-buttons slot="start">
       <ion-menu-button autoHide="false" color="light"></ion-menu-button>
     </ion-buttons>
-    <ion-title class="custom-font" *ngFor="let users of filtered">
-      <p>{{users.username}}/{{users.userId}}</p>   
+    <ion-title class="custom-font" >
+      Manage
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen>
+<ion-content  class="ion-padding">
   <h1 *ngIf="filtered.length===0">Oops. You don't have any requests right now</h1>
+
+  <ion-slides>
+    <ion-slide *ngFor="let users of filtered">
+      <ion-card class="ion-text-start" color="tertiary">
+        <img [src]="users.ownRestaurant.rimageUrl.imgMain">
+      <ion-card-header>
+        <ion-card-title>{{users.ownRestaurant.rTitle}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        {{users.ownRestaurant.rDescription}}
+      </ion-card-content>
+      <footer>
+        <ion-button class="ion-no-margin" expand="block" color="medium">
+          Accept
+        </ion-button>
+        <ion-button class="ion-no-margin" expand="block" color="medium">
+          Deny
+        </ion-button>
+      </footer>
+    </ion-card>
+    </ion-slide>
+  </ion-slides>
 
 
 </ion-content>

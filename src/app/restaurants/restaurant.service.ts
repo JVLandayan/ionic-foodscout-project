@@ -1,6 +1,6 @@
 import { EventEmitter } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { IonicControllersService } from '../ionic-controllers.service';
 import { AuthService } from '../login/auth/auth.service';
 import { Categories } from './categories.model';
 import { Restaurant } from './restaurant.model';
@@ -10,17 +10,7 @@ import { Restaurant } from './restaurant.model';
 })
 export class RestaurantService {
 
-  constructor(private alertCtrl : AlertController, private authService: AuthService) { }
-
-  async presentAlert() {
-    const alert = await this.alertCtrl.create({
-      cssClass: 'my-custom-class',
-      header: 'Failed to Add',
-      message: 'Restaurant is already at the favorites tab',
-      buttons: ['OK']
-    });
-    await alert.present();
-  }
+  constructor(private ionicCtrl: IonicControllersService, private authService: AuthService) { }
 
   private _categories : Categories[] = [{
     id: 1,
@@ -137,7 +127,7 @@ export class RestaurantService {
     })
 
     if(compareId){
-      this.presentAlert()
+      this.ionicCtrl.favoriteOverflow()
     }
     else{
       this.authService.User.favorites.push(dataRestaurant)

@@ -18,7 +18,7 @@
   <div class="desc">
     <ion-input type="text" class="custom-font title" [readonly]="editInfo" [(ngModel)]="postTitle" ></ion-input>
     <ion-textarea type="text" class="custom-font description" [(ngModel)]="postDescription" [readonly]="editInfo" ></ion-textarea>
-    <h4 class="custom-font" *ngIf="editInfo">
+    <h4 [class]="editInfo? 'custom-font':'hide-text' ">
       {{ownedRestaurant.rRating}}/5.0
     </h4>
   </div>

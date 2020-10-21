@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { IonicControllersService } from 'src/app/ionic-controllers.service';
 import { AuthService } from './auth.service';
 
 @Component({
@@ -12,17 +12,8 @@ export class AuthPage implements OnInit {
   username: string
   password: string
 
-  async presentAlert() {
-    const alert = await this.alertController.create({
-      cssClass: 'my-custom-class',
-      header: 'Login',
-      message: 'Wrong Credentials',
-      buttons: ['OK']
-    });
-    await alert.present();
-  }
 
-  constructor(private authServ: AuthService, private router: Router, private alertController: AlertController)  {
+  constructor(private authServ: AuthService, private router: Router, private ionicCtrl: IonicControllersService)  {
     
   }
   
@@ -35,7 +26,7 @@ export class AuthPage implements OnInit {
     const verification = Object.entries(auth).length === 0
     
     if(verification){
-      this.presentAlert()
+      this.ionicCtrl.loginWrong()
     }
     else{
       this.authServ.login()

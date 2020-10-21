@@ -13,6 +13,9 @@ h5, p {
 
 ion-content {
     --background: #2a2e43;
+    img {
+        border-radius: 40px;
+    }
 }
 div {
     ion-input{
@@ -26,4 +29,8 @@ div {
             font-size: 16px;
         }
     }
+}
+
+.hide-text {
+    color: #2a2e43;
 }

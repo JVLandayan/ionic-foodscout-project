@@ -1,21 +1,3 @@
-.poster-col {
-    img {
-        border-radius: 40px;
-        width: 350px !important;
-        height: 500px !important;
-        object-fit: cover !important;
-    }
-}
-
-.rate {
-    font-size: 14px;
-    padding-top: 4px;
-    
-    ion-icon {
-        color: gold;
-    }
-}
-
 h5 {
  margin-top: 4px;
 }
@@ -39,4 +21,8 @@ h5, p {
 h1{ 
     font-size: 16px;
     color: white;
+}
+
+ion-card {
+    border-radius: 20px;
 }
