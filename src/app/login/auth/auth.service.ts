@@ -30,26 +30,8 @@ export class AuthService {
       username: 'user',
       password: 'user',
       favorites: [],
-      ownRestaurant: {
-        id:'r10',
-        rTitle:'Restaurant 1',
-        rDescription:'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis modi autem veritatis ',
-        rimageUrl:{imgMain:'https://download.logo.wine/logo/Jollibee/Jollibee-Logo.wine.png'
-        , imgSub:["https://thesmartlocal.com/philippines/wp-content/uploads/2020/04/image1-2.png",]},
-        rRating: 4.7,
-        rPrice:{min:700,max:1000},
-        isFavorite: false
-        },
-        tempUpdate: {
-          id:'r10',
-          rTitle:'Restaurant 1',
-          rDescription:'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis modi autem veritatis ',
-          rimageUrl:{imgMain:'https://download.logo.wine/logo/Jollibee/Jollibee-Logo.wine.png'
-          , imgSub:["https://thesmartlocal.com/philippines/wp-content/uploads/2020/04/image1-2.png",]},
-          rRating: 4.7,
-          rPrice:{min:700,max:1000},
-          isFavorite: false
-          }
+      ownRestaurant: null,
+      tempUpdate: null
     },
     {
       authId: 3,
@@ -68,16 +50,7 @@ export class AuthService {
         rPrice:{min:700,max:1000},
         isFavorite: false
         },
-        tempUpdate: {
-          id:'r10',
-          rTitle:'Restaurant 1',
-          rDescription:'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis modi autem veritatis ',
-          rimageUrl:{imgMain:'https://download.logo.wine/logo/Jollibee/Jollibee-Logo.wine.png'
-          , imgSub:["https://thesmartlocal.com/philippines/wp-content/uploads/2020/04/image1-2.png",]},
-          rRating: 4.7,
-          rPrice:{min:700,max:1000},
-          isFavorite: false
-          }
+        tempUpdate: null
     }
   ]
 

@@ -53,6 +53,7 @@ export class RestaurantService {
   fRestaurantChanged = new EventEmitter <Restaurant[]>()
   fRestaurantData = new EventEmitter<Restaurant>()
   RestaurantsChanged = new EventEmitter<Restaurant[]>()
+  RestaurantChanged = new EventEmitter<Restaurant>()
 
   private _Restaurants : Restaurant[] = [
     {
@@ -121,6 +122,8 @@ export class RestaurantService {
     return {...this._Restaurants.find(p=>p.id === id)}
   }
 
+  //*Push methods
+
   pushFavorite (dataRestaurant:Restaurant) {
     const compareId = this.authService.User.favorites.some(data=>{
       return data.id === dataRestaurant.id
@@ -139,5 +142,41 @@ export class RestaurantService {
       return restaurantData.id
     }).indexOf(id)
     this.fRestaurantChanged.emit(this.authService.User.favorites.splice(updatedArray,1))
+  }
+  
+  pushMerchantUpdate (rData : Restaurant) {
+    const arrData = this._Restaurants.find((arrRestaurant: Restaurant)=>{
+       return arrRestaurant.id === rData.id
+     })
+  }
+
+
+  pushData (rData: Restaurant) {
+    this._Restaurants.push(rData)
+  }
+
+  compareData (rData: Restaurant) {
+    this._Restaurants.find((arrRestaurant: Restaurant)=> {
+      return rData.id === arrRestaurant.id
+    })
+  }
+
+
+  pushMerchantData (rdata: Restaurant) {
+    const arrData = this._Restaurants.filter((arrRestaurant: Restaurant)=>{
+      return arrRestaurant.id === rdata.id 
+    }).slice(0,1)
+    console.log(rdata)
+    console.log(arrData)
+    //* returns undefined if find failed. Returns the data if it succeed
+
+      if (arrData.length === 0) {
+      this._Restaurants.push(rdata)
+      this.RestaurantChanged.emit(rdata)
+    } 
+    
+      
+
+
   }
 }

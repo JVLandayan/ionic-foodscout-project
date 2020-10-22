@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthService } from './login/auth/auth.service';
 import { Router } from '@angular/router';
 import { User } from './login/auth/User.model';
+import { RestaurantService } from './restaurants/restaurant.service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,8 @@ export class AppComponent implements OnInit {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private authServ : AuthService,
-    private router: Router
+    private router: Router,
+    private restaurantService: RestaurantService
   ) {
     this.initializeApp();
   }
@@ -58,7 +60,10 @@ export class AppComponent implements OnInit {
       }
       else if (this.LoggedInUser.authId == 3){
         this.panel="merchantpanel"
+        this.restaurantService.pushMerchantData(this.LoggedInUser.ownRestaurant)
       } 
+
+
     })
   }
 
