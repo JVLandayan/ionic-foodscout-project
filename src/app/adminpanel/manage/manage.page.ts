@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import { AuthService } from 'src/app/login/auth/auth.service';
 import { User } from 'src/app/login/auth/User.model';
 import { Restaurant } from 'src/app/restaurants/restaurant.model';
@@ -11,10 +13,10 @@ import { RestaurantService } from 'src/app/restaurants/restaurant.service';
 })
 export class ManagePage implements OnInit {
 
-  constructor(private authService :AuthService, private restaurantService: RestaurantService) { }
+  constructor(private authService :AuthService, private restaurantService: RestaurantService, private navCtrl: NavController) { }
     
   ngOnInit() {
-
+    
   }
 
   slideOpts = {
@@ -29,21 +31,23 @@ export class ManagePage implements OnInit {
     return users.tempUpdate !== null
      }
    )
+   
 
    onAccept(users: Restaurant) {
       this.restaurantService.pushMerchantUpdate(users)
-      console.log(users)
+      this.navCtrl.back()
    }
 
-   onDeny() {
-
+   onDeny(users: Restaurant) {
+    this.authService.updateMerchantDeny(users)
+    this.navCtrl.back()
    }
 
    //*Delete Posts
    loadedPosts : Restaurant[] = this.restaurantService.recomRestaurants
 
-   onDelete() {
-
+   onDelete(postData: Restaurant) {
+    
    }
 
 

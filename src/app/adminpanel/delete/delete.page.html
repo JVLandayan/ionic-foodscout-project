@@ -13,8 +13,8 @@
 <ion-content class="ion-padding" >
 
     <div id="container">
-      <ion-card *ngFor="let pic of picture">
-        <img [src]="pic">
+      <ion-card *ngFor="let restaurant of loadedRestaurant">
+        <img [src]="restaurant.rimageUrl.imgMain">
       </ion-card>
     </div>
 

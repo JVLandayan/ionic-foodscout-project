@@ -26,7 +26,7 @@
         <ion-button class="ion-no-margin" expand="block" color="medium" (click)="onAccept(users.tempUpdate)">
           Accept
         </ion-button>
-        <ion-button class="ion-no-margin" expand="block" color="medium" (click)="onDeny()">
+        <ion-button class="ion-no-margin" expand="block" color="medium" (click)="onDeny(users.tempUpdate)">
           Deny
         </ion-button>
       </footer>
@@ -46,7 +46,7 @@
         {{posts.rDescription}}
       </ion-card-content>
       <footer>
-        <ion-button class="ion-no-margin" expand="block" color="medium" (click)="onDelete()">
+        <ion-button class="ion-no-margin" expand="block" color="medium" (click)="onDelete(posts)">
           Delete
         </ion-button>
 

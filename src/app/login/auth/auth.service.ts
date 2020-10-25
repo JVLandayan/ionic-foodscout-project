@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { computeStackId } from '@ionic/angular/directives/navigation/stack-utils';
 import { Restaurant } from 'src/app/restaurants/restaurant.model';
+import { RestaurantService } from 'src/app/restaurants/restaurant.service';
 import { User } from './User.model';
 
 @Injectable({
@@ -104,6 +104,21 @@ export class AuthService {
 
   get listUsers () {
     return this._userCredentials
+  }
+
+  updateMerchant(merchantRef : number, newData: Restaurant) {
+    this._userCredentials[merchantRef].ownRestaurant = newData
+    this._userCredentials[merchantRef].tempUpdate = null
+    console.log(this._userCredentials[merchantRef])
+  } 
+
+  updateMerchantDeny (merchantPost: Restaurant) {
+    const userReference = this._userCredentials.findIndex((userData: User)=> {
+      return userData.tempUpdate === merchantPost
+     })
+     console.log(userReference)
+
+    this._userCredentials[userReference].tempUpdate = null
   }
 
 }

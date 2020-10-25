@@ -2,6 +2,7 @@ import { EventEmitter } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { IonicControllersService } from '../ionic-controllers.service';
 import { AuthService } from '../login/auth/auth.service';
+import { User } from '../login/auth/User.model';
 import { Categories } from './categories.model';
 import { Restaurant } from './restaurant.model';
 
@@ -54,6 +55,7 @@ export class RestaurantService {
   fRestaurantData = new EventEmitter<Restaurant>()
   RestaurantsChanged = new EventEmitter<Restaurant[]>()
   RestaurantChanged = new EventEmitter<Restaurant>()
+  restaurantUpdates = new EventEmitter<Restaurant>()
 
   private _Restaurants : Restaurant[] = [
     {
@@ -108,8 +110,6 @@ export class RestaurantService {
     },
   ]
 
-
-
   get favRestaurants() {
     return [...this.authService.User.favorites]
   }
@@ -145,37 +145,34 @@ export class RestaurantService {
   }
   
   pushMerchantUpdate (rData : Restaurant) {
+    //arrData and userReference to find it and push it to merchant own restaurant
     const arrData = this._Restaurants.find((arrRestaurant: Restaurant)=>{
        return arrRestaurant.id === rData.id
      })
-  }
-
-
-  pushData (rData: Restaurant) {
-    this._Restaurants.push(rData)
-  }
-
-  compareData (rData: Restaurant) {
-    this._Restaurants.find((arrRestaurant: Restaurant)=> {
-      return rData.id === arrRestaurant.id
+     const userReference = this.authService.listUsers.findIndex((userData: User)=> {
+      return userData.ownRestaurant === arrData
+     })
+     //arrIndex to find and replace it in the restaurants tab
+     const arrIndex = this._Restaurants.findIndex((arrRestaurant: Restaurant)=>{
+      return arrRestaurant.id === rData.id 
     })
-  }
 
+    this._Restaurants.splice(arrIndex,1,rData)
+    this.authService.updateMerchant(userReference, rData)
+    this.RestaurantsChanged.emit(this._Restaurants)
+  }
 
   pushMerchantData (rdata: Restaurant) {
     const arrData = this._Restaurants.filter((arrRestaurant: Restaurant)=>{
       return arrRestaurant.id === rdata.id 
     }).slice(0,1)
-    console.log(rdata)
-    console.log(arrData)
-    //* returns undefined if find failed. Returns the data if it succeed
 
       if (arrData.length === 0) {
       this._Restaurants.push(rdata)
       this.RestaurantChanged.emit(rdata)
-    } 
+    }
+
     
-      
 
 
   }
