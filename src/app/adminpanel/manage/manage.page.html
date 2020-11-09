@@ -10,11 +10,11 @@
 </ion-header>
 
 <ion-content  class="ion-padding">
-  <h1 *ngIf="filtered.length===0">Oops. You don't have any requests right now</h1>
-<h1 *ngIf="filtered.length===0">Merchant Requests</h1>
+  <h1 *ngIf="filtered.length===0"><b>Merchant Requests</b></h1>
+  <h1 *ngIf="filtered.length===0">Oops. You don't have any requests right now</h1>  
   <ion-slides>
-    <ion-slide *ngFor="let users of filtered">
-      <ion-card class="ion-text-start" color="tertiary">
+    <ion-slide *ngFor="let users of filtered" [routerLink]="['/','adminpanel','admin','manage',users.ownRestaurant.id]" >
+      <ion-card class="ion-text-start" color="tertiary" >
         <img [src]="users.tempUpdate.rimageUrl.imgMain">
       <ion-card-header>
         <ion-card-title>{{users.tempUpdate.rTitle}}</ion-card-title>
@@ -33,7 +33,7 @@
     </ion-card>
     </ion-slide>
   </ion-slides>
-
+ <!--
   <h1 *ngIf="filtered.length===0">Posts</h1>
   <ion-slides>
     <ion-slide *ngFor="let posts of loadedPosts">
@@ -49,10 +49,11 @@
         <ion-button class="ion-no-margin" expand="block" color="medium" (click)="onDelete(posts)">
           Delete
         </ion-button>
-
       </footer>
     </ion-card>
     </ion-slide>
   </ion-slides>
+
+-->
 
 </ion-content>

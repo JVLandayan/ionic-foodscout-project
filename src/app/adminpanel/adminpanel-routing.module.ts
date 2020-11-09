@@ -22,10 +22,6 @@ const routes: Routes = [
           }
         ]
       },
-      {
-        path: 'delete',
-        loadChildren: () => import('./delete/delete.module').then( m => m.DeletePageModule)
-      }
     ]
   },
 

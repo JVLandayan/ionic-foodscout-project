@@ -17,7 +17,6 @@
         <ion-col size="12" class="poster-col">
           <img [(src)]="restaurant.rimageUrl.imgSub[0]" 
           [routerLink]="['/','restaurants','tabs','discover',restaurant.id]"
-          [queryParams]="{isFavorite:isitFavorite}"
           fragment="loading">
         </ion-col>
         <ion-col size="12">

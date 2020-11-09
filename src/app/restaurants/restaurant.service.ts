@@ -156,7 +156,6 @@ export class RestaurantService {
      const arrIndex = this._Restaurants.findIndex((arrRestaurant: Restaurant)=>{
       return arrRestaurant.id === rData.id 
     })
-
     this._Restaurants.splice(arrIndex,1,rData)
     this.authService.updateMerchant(userReference, rData)
     this.RestaurantsChanged.emit(this._Restaurants)
@@ -171,9 +170,6 @@ export class RestaurantService {
       this._Restaurants.push(rdata)
       this.RestaurantChanged.emit(rdata)
     }
-
     
-
-
   }
 }

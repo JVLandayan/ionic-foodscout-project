@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { AuthService } from 'src/app/login/auth/auth.service';
 import { User } from 'src/app/login/auth/User.model';
@@ -32,7 +31,6 @@ export class ManagePage implements OnInit {
      }
    )
    
-
    onAccept(users: Restaurant) {
       this.restaurantService.pushMerchantUpdate(users)
       this.navCtrl.back()

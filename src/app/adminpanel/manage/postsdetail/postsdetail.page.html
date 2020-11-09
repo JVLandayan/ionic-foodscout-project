@@ -1,9 +1,32 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>postsdetail</ion-title>
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/restaurants/tabs/home" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="custom-font">
+      Details   
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content fullsreen color="tertiary">
+  <div class="ion-padding adjustPadding">
+    <img [src]="restaurant.rimageUrl.imgSub[0]" class="ion-padding-horizontal">
+<div class="ion-padding">
+  <div class="desc">
+    <h4 class="custom-font">
+      {{restaurant.rTitle}}
+    </h4>
+    <h6 class="custom-font">
+      {{restaurant.rDescription}} 
+    </h6>
+    <h4 class="custom-font">
+      {{restaurant.rRating}}/5.0
+    </h4>
+  </div>
+  
+    </div>
+
+  </div>
 
 </ion-content>

@@ -116,8 +116,6 @@ export class AuthService {
     const userReference = this._userCredentials.findIndex((userData: User)=> {
       return userData.tempUpdate === merchantPost
      })
-     console.log(userReference)
-
     this._userCredentials[userReference].tempUpdate = null
   }
 
