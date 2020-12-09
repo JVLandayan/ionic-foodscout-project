@@ -10,19 +10,19 @@
 </ion-header>
 <ion-content class="ion-padding">
   <div class="uiFixer">
-    <h1 *ngIf="loadedRestaurants.length === 0">Oops. You don't have any favorites</h1>
+    <h1 *ngIf="userFavorites.length === 0">Oops. You don't have any favorites</h1>
   <ion-card 
-  *ngFor="let restaurants of loadedRestaurants" 
+  *ngFor="let restaurants of userFavorites" 
   class="bgOverride ion-no-padding" 
   [routerLink]="['/','restaurants','tabs','favorites',restaurants.id]"
   >
-      <img [src]="restaurants.rimageUrl.imgMain">
+      <img [src]="restaurants.imageMain">
       <ion-card-header>
         <ion-card-subtitle>Restaurant</ion-card-subtitle>
-        <ion-card-title>{{restaurants.rTitle}}</ion-card-title>
+        <ion-card-title>{{restaurants.Title}}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-      {{restaurants.rDescription}}
+      {{restaurants.Description}}
       </ion-card-content>
   </ion-card>
 </div>

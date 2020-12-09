@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 import { Categories } from '../categories.model';
 import { Restaurant } from '../restaurant.model';
 import { RestaurantService } from '../restaurant.service';
@@ -10,22 +12,24 @@ import { RestaurantService } from '../restaurant.service';
 })
 export class HomePage implements OnInit {
   
-  loadednewRestaurant : Restaurant[];
-  loadedCategories : Categories[];
-  loadedrecRestaurant : Restaurant[];
 
-  constructor(private restaurantServ: RestaurantService) { }
+  constructor(private restaurantServ: RestaurantService, public afStore: AngularFirestore) { }
+
+  public loadedRestau: Observable<Restaurant[]>
+  loadedRestaurants: Restaurant[]
 
   ngOnInit() {
-    this.loadedCategories = this.restaurantServ.categories
-    this.loadednewRestaurant = this.restaurantServ.recomRestaurants
-    this.loadedrecRestaurant = this.restaurantServ.recomRestaurants
 
+    try {
+      this.loadedRestau = this.restaurantServ.getRestaus()
+      this.loadedRestau.subscribe((res:Restaurant[])=>{
+        this.loadedRestaurants = res
+      })
+    } catch (error) {
+      console.dir(error)
+    }
 
-    this.restaurantServ.RestaurantsChanged.subscribe((restaurantData: Restaurant[]) =>{
-      this.loadednewRestaurant = this.restaurantServ.recomRestaurants
-      this.loadedrecRestaurant = this.restaurantServ.recomRestaurants
-    })
+   
   } 
 
   //Slides

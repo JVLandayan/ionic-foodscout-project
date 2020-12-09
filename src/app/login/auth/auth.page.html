@@ -3,7 +3,10 @@
 <ion-header class="ion-no-border">
 	<ion-toolbar>
     <div class="back-circle"></div>
-		<ion-title class="ion-text-center custom-font">Login</ion-title>
+    <ion-title class="ion-text-center custom-font">Login</ion-title>
+    <div *ngFor="let user of (users | async)">
+      {{user.email}} {{user.authId}}
+    </div>
 	</ion-toolbar>
 </ion-header>
 <ion-content fullscreen="true">

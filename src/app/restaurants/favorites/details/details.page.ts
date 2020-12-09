@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { AuthService } from 'src/app/login/auth/auth.service';
 import { Restaurant } from '../../restaurant.model';
 import { RestaurantService } from '../../restaurant.service';
 
@@ -11,21 +12,40 @@ import { RestaurantService } from '../../restaurant.service';
 })
 
 export class DetailsPage implements OnInit {
-  restaurant: Restaurant;
+  updatedRestaurant: Restaurant;
 
-  constructor(private route: ActivatedRoute,private navCtrl: NavController, private restaurantServ: RestaurantService,private router:Router ) { }
+  constructor(private route: ActivatedRoute,private navCtrl: NavController, private restaurantServ: RestaurantService,private router:Router, private authServ: AuthService ) { }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(paramMap=> {
-      if(!paramMap.has('restaurantId')) {
-        this.navCtrl.navigateBack('/restaurants/tabs/discover');
+    try {
+      
+      updatedRestaurant: Restaurant
+      this.route.paramMap.subscribe(paramMap=> {
+        if(!paramMap.has('restaurantId')) {
+          this.navCtrl.navigateBack('/restaurants/tabs/discover');
+        }
+  
+        this.restaurantServ.getRestau(paramMap.get('restaurantId')).subscribe((res)=>{
+          this.updatedRestaurant =  res //Details of restaurant
+        })
       }
-      this.restaurant = this.restaurantServ.getRestaurant(paramMap.get('restaurantId'))
-    })
+      )
+        
+      } catch (error) {
+        console.log(error)
+      }
 }
 
   onDelRestaurant () {
+    /*
     this.restaurantServ.deleteRestaurant(this.restaurant.id)
+    this.navCtrl.back()
+    */
+
+    console.log(this.authServ.userData)
+    this.authServ.deleteFavorite(this.authServ.userData,this.updatedRestaurant)
+    this.authServ.userData.userId
+    
     this.navCtrl.back()
   }
 }

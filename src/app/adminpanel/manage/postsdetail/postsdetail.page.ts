@@ -15,12 +15,6 @@ export class PostsdetailPage implements OnInit {
   constructor(private route: ActivatedRoute,private navCtrl: NavController, private restaurantServ: RestaurantService,private router:Router ) { }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(paramMap=> {
-      if(!paramMap.has('postId')) {
-        this.navCtrl.back();
-      }
-      this.restaurant = this.restaurantServ.getRestaurant(paramMap.get('postId'))
-    })
 }
 
 }

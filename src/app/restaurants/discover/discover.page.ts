@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 import { Restaurant } from '../restaurant.model';
 import { RestaurantService } from '../restaurant.service';
 
@@ -9,17 +11,24 @@ import { RestaurantService } from '../restaurant.service';
 })
 export class DiscoverPage implements OnInit {
 
-  loadedRestaurant: Restaurant[] = []
 
-  isitFavorite = '1'
 
-  constructor(private restaurantServ: RestaurantService) { }
+  constructor(public afStore: AngularFirestore, public restaurantServ: RestaurantService) { }
+
+  public loadedRestau: Observable<Restaurant[]>
+  loadedRestaurants: Restaurant[]
 
   ngOnInit() {
-    this.loadedRestaurant = this.restaurantServ.recomRestaurants
-    this.restaurantServ.RestaurantsChanged.subscribe(()=>{
-      this.loadedRestaurant = this.restaurantServ.recomRestaurants
-    })
+
+    try {
+      this.loadedRestau = this.restaurantServ.getRestaus()
+      this.loadedRestau.subscribe((res:Restaurant[])=>{
+        this.loadedRestaurants = res
+      })
+    } catch (error) {
+      console.dir(error)
+    }
+
   }
 
   options = {

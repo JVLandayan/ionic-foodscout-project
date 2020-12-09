@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/login/auth/auth.service';
+import { User } from 'src/app/login/auth/User.model';
 import { Restaurant } from '../restaurant.model';
 import { RestaurantService } from '../restaurant.service';
 
@@ -9,17 +13,25 @@ import { RestaurantService } from '../restaurant.service';
 })
 export class FavoritesPage implements OnInit {
 
-  loadedRestaurants : Restaurant[]
+  userFavorites : Restaurant[]
+  public activeuser : Observable<User>
+  activeUser: User
+  
 
-  constructor(private restaurantServ: RestaurantService) { 
+  constructor(private authServ : AuthService, public afStore :AngularFirestore) { 
     
    }
 
+   
+
   ngOnInit() {
-    this.loadedRestaurants = this.restaurantServ.favRestaurants
-    this.restaurantServ.fRestaurantChanged.subscribe(()=>{
-      this.loadedRestaurants = this.restaurantServ.favRestaurants
+    this.activeuser = this.authServ.getUser(this.authServ.userData.id)
+    this.activeuser.subscribe((res:User)=>{
+      this.userFavorites = res.favorites
+      console.log(res.favorites)
     })
+    
+    
   }
 
 }

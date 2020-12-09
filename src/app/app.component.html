@@ -16,6 +16,7 @@
     </ion-item>
   </ion-menu-toggle>
   <ion-menu-toggle>
+    
       <ion-item routerLink="/restaurants/tabs/discover">
         <ion-icon slot="start" name="search" color="light"></ion-icon>
         <ion-label class="custom-font">Discover</ion-label>
@@ -32,12 +33,6 @@
       <ion-item>
         <ion-icon slot="start" name="person-circle-outline" color="light"></ion-icon>
         <ion-label class="custom-font">Admin Panel</ion-label>
-      </ion-item>
-    </ion-menu-toggle>
-    <ion-menu-toggle [routerLink]="['/','merchantpanel']" *ngIf="LoggedInUser.authId == 3">
-      <ion-item>
-        <ion-icon slot="start" name="person-circle-outline" color="light"></ion-icon>
-        <ion-label class="custom-font" >Merchant Panel</ion-label>
       </ion-item>
     </ion-menu-toggle>
   <ion-menu-toggle>

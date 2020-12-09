@@ -1,61 +1,89 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { Restaurant } from 'src/app/restaurants/restaurant.model';
-import { RestaurantService } from 'src/app/restaurants/restaurant.service';
 import { User } from './User.model';
-
+import { Observable} from 'rxjs'
+import { take, map } from 'rxjs/operators';
+import { AngularFirestore, AngularFirestoreCollection, DocumentReference} from '@angular/fire/firestore'
+import * as firebase from 'firebase/app';
+import { Restaurant } from 'src/app/restaurants/restaurant.model';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private users: Observable<User[]>
+  private userCollection: AngularFirestoreCollection<User> 
+
+  constructor(private afStore : AngularFirestore) {
+    this.userCollection = this.afStore.collection<User>('users')
+    this.users = this.userCollection.snapshotChanges().pipe(
+      map(actions=> {
+        return actions.map (a => {
+          const data = a.payload.doc.data()
+          const id = a.payload.doc.id
+          return {id, ...data}
+        })
+      })
+    )
+   } 
+
+   getUsers(): Observable<User[]> {
+     return this.users
+   }
+
+   getUser(id:string): Observable<User> {
+     return this.userCollection.doc<User>(id).valueChanges().pipe(
+       take(1),
+       map(user => {
+         user.userId = id
+         return user
+       })
+     )
+   }
+
+   addUser (user:User): Promise<DocumentReference> {
+    return this.userCollection.add(user)
+   }
+   
+   addFavorites (user:User, restauData: Restaurant): Promise<void> {
+     console.log(user.id,restauData)
+     return this.userCollection.doc(user.id).update({
+      /*
+      id:user.userId,
+      authId: user.authId,
+      email: user.email,
+      username: user.username,
+      password: user.password,
+      userId: user.userId,
+      */
+
+      favorites: firebase.default.firestore.FieldValue.arrayUnion(restauData)
+     }).then(()=>console.log('Successfully Written')).catch(err=>console.log(err))
+   }
+
+   deleteFavorite (user:User, restauData:Restaurant): Promise<void> {
+    return this.userCollection.doc(user.userId).update({         
+      favorites: firebase.default.firestore.FieldValue.arrayRemove(restauData)
+    }).then(()=>console.log('Successfully Written')).catch(err=>console.log(err))
+  }
+
+
 
   private _activatedUser : User
+
+
+   replaceUser(loginData:User) {
+    this._activatedUser = loginData
+    this.userChanged.emit(this._activatedUser)
+    console.log(this._activatedUser.id)
+   }
+
   userChanged = new EventEmitter <User>()
   userlistChanged = new EventEmitter <User[]>()
   merchantPost = new EventEmitter <User>()
   private _userCredentials : User[] = [
-    { 
-      authId: 1,
-      userId: 23045,
-      email: 'admin@admin.com',
-      username: 'admin',
-      password: 'admin',
-      favorites: [],
-      ownRestaurant: null,
-      tempUpdate: null
-    },
-    {
-      authId: 2,
-      userId: 21024,
-      email: 'user@user.com',
-      username: 'user',
-      password: 'user',
-      favorites: [],
-      ownRestaurant: null,
-      tempUpdate: null
-    },
-    {
-      authId: 3,
-      userId: 11302,
-      email: 'merchant@merchant.com',
-      username: 'merchant',
-      password: 'merchant',
-      favorites: [],
-      ownRestaurant: {
-        id:'r10',
-        rTitle:'Restaurant 1',
-        rDescription:'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis modi autem veritatis ',
-        rimageUrl:{imgMain:'https://download.logo.wine/logo/Jollibee/Jollibee-Logo.wine.png'
-        , imgSub:["https://thesmartlocal.com/philippines/wp-content/uploads/2020/04/image1-2.png",]},
-        rRating: 4.7,
-        rPrice:{min:700,max:1000},
-        isFavorite: false
-        },
-        tempUpdate: null
-    }
   ]
 
   get userData () {
-    return this._userCredentials;
+    return this._activatedUser;
     }
 
   private _userIsAuthenticated = false
@@ -64,7 +92,6 @@ export class AuthService {
     return this._userIsAuthenticated;
   }
 
-  constructor() { }
 
   login () {
     this._userIsAuthenticated = true
@@ -74,13 +101,11 @@ export class AuthService {
     this._userIsAuthenticated = false
   }
 
-  getLogin (username:string, password:string) {
-    return {...this._userCredentials.find(p=>p.username === username && p.password===password)}
-  }
+
 
   pushCurrentUser (user:User) {
     this._activatedUser = user
-    this.userChanged.emit(this._activatedUser)
+
   }
 
   get User () {
@@ -89,34 +114,16 @@ export class AuthService {
 
   pushUser(signupData:User) {
     this._userCredentials.push(signupData)
+    //*userlistchanged
     this.userlistChanged.emit(this._userCredentials)
     console.log(this._userCredentials)
-  }
-
-  postTemp (postData: Restaurant) {
-    this._activatedUser.tempUpdate = postData
-    this.merchantPost.emit(this._activatedUser)
-    const oldData = this._userCredentials.findIndex((user:User)=>{
-      return user.userId === this._activatedUser.userId
-    })
-    this._userCredentials.splice(oldData,1,this._activatedUser)
   }
 
   get listUsers () {
     return this._userCredentials
   }
 
-  updateMerchant(merchantRef : number, newData: Restaurant) {
-    this._userCredentials[merchantRef].ownRestaurant = newData
-    this._userCredentials[merchantRef].tempUpdate = null
-    console.log(this._userCredentials[merchantRef])
-  } 
 
-  updateMerchantDeny (merchantPost: Restaurant) {
-    const userReference = this._userCredentials.findIndex((userData: User)=> {
-      return userData.tempUpdate === merchantPost
-     })
-    this._userCredentials[userReference].tempUpdate = null
-  }
+
 
 }

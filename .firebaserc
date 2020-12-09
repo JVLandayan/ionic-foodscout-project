@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "food-scout-5b9c7": {
+      "hosting": {
+        "app": [
+          "food-scout-5b9c7"
+        ]
+      }
+    }
+  }
+}

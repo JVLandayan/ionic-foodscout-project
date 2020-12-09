@@ -1,17 +1,60 @@
-import { EventEmitter } from '@angular/core';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { IonicControllersService } from '../ionic-controllers.service';
 import { AuthService } from '../login/auth/auth.service';
-import { User } from '../login/auth/User.model';
 import { Categories } from './categories.model';
 import { Restaurant } from './restaurant.model';
+import { AngularFirestore, AngularFirestoreCollection, DocumentReference} from '@angular/fire/firestore'
+import { Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestaurantService {
+  private restaurant: Observable<Restaurant[]>
+  private restaurantCollection: AngularFirestoreCollection<Restaurant> 
 
-  constructor(private ionicCtrl: IonicControllersService, private authService: AuthService) { }
+  constructor(private afStore : AngularFirestore, private ionicCtrl: IonicControllersService, private authService: AuthService) {
+    this.restaurantCollection = this.afStore.collection<Restaurant>('restaurants')
+    this.restaurant = this.restaurantCollection.snapshotChanges().pipe(
+      map(actions=> {
+        return actions.map (a => {
+          const data = a.payload.doc.data()
+          const id = a.payload.doc.id
+          return {id, ...data}
+        })
+      })
+    )
+   } 
+
+   getRestaus(): Observable<Restaurant[]> {
+     return this.restaurant
+   }
+
+   getRestau(id:string): Observable<Restaurant> {
+     return this.restaurantCollection.doc<Restaurant>(id).valueChanges().pipe(
+       take(1),
+       map(restaurant => {
+         restaurant.rId = id
+         return restaurant
+       })
+     )
+   }
+
+   addRestau (restaurant:Restaurant): Promise<DocumentReference> {
+    return this.restaurantCollection.add(restaurant)
+   }
+   
+   updateRestau (restaurant:Restaurant): Promise<void> {
+     return this.restaurantCollection.doc(restaurant.id).update({
+
+     })
+   }
+
+   deleteRestau (id: string): Promise<void> {
+    return this.restaurantCollection.doc(id).delete()
+   }
+
 
   private _categories : Categories[] = [{
     id: 1,
@@ -50,6 +93,8 @@ export class RestaurantService {
     return [...this._categories]
   }
 
+  
+
 //Restaurant related
   fRestaurantChanged = new EventEmitter <Restaurant[]>()
   fRestaurantData = new EventEmitter<Restaurant>()
@@ -57,70 +102,11 @@ export class RestaurantService {
   RestaurantChanged = new EventEmitter<Restaurant>()
   restaurantUpdates = new EventEmitter<Restaurant>()
 
-  private _Restaurants : Restaurant[] = [
-    {
-    id:'r1',
-    rTitle:'Restaurant 1',
-    rDescription:'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis modi autem veritatis ',
-    rimageUrl:{imgMain:'https://download.logo.wine/logo/Jollibee/Jollibee-Logo.wine.png'
-    , imgSub:["https://thesmartlocal.com/philippines/wp-content/uploads/2020/04/image1-2.png",]},
-    rRating: 4.7,
-    rPrice:{min:200,max:400},
-    isFavorite: false
-    },
-    {
-      id:'r2',
-      rTitle:'Restaurant 2',
-      rDescription:'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis modi autem veritatis ',
-      rimageUrl:{imgMain:'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/20190503-delish-pineapple-baked-salmon-horizontal-ehg-450-1557771007.jpg?crop=0.721xw:0.704xh;0.131xw,0.156xh&resize=768:*', 
-      imgSub:["https://thesmartlocal.com/philippines/wp-content/uploads/2020/04/image1-2.png",""]},
-      rPrice:{min:5000,max:10000},
-      rRating: 4.3,
-      isFavorite: false
-    },
-    {
-      id:'r3',
-      rTitle:'Restaurant 3',
-      rDescription:'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis modi autem veritatis ',
-      rimageUrl:{imgMain:'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/20190503-delish-pineapple-baked-salmon-horizontal-ehg-450-1557771007.jpg?crop=0.721xw:0.704xh;0.131xw,0.156xh&resize=768:*', 
-      imgSub:["https://cdn1.clickthecity.com/images/articles/content/5bbee086dbbfb3.06299918.jpg",""]},
-      rPrice:{min:300,max:400},
-      rRating: 4.1,
-      isFavorite: false
-    },
-    {
-      id:'r4',
-      rTitle:'Restaurant 4',
-      rDescription:'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis modi autem veritatis ',
-      rimageUrl:{imgMain:'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/20190503-delish-pineapple-baked-salmon-horizontal-ehg-450-1557771007.jpg?crop=0.721xw:0.704xh;0.131xw,0.156xh&resize=768:*', 
-      imgSub:["https://thesmartlocal.com/philippines/wp-content/uploads/2020/04/image1-2.png",""]},
-      rPrice:{min:5000,max:10000},
-      rRating: 4.3,
-      isFavorite: false
-    },
-    {
-      id:'r5',
-      rTitle:'Restaurant 5',
-      rDescription:'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis modi autem veritatis ',
-      rimageUrl:{imgMain:'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/20190503-delish-pineapple-baked-salmon-horizontal-ehg-450-1557771007.jpg?crop=0.721xw:0.704xh;0.131xw,0.156xh&resize=768:*', 
-      imgSub:["https://thesmartlocal.com/philippines/wp-content/uploads/2020/04/image1-2.png",""]},
-      rPrice:{min:5000,max:10000},
-      rRating: 4.3,
-      isFavorite: false
-    },
-  ]
 
   get favRestaurants() {
     return [...this.authService.User.favorites]
   }
 
-  get recomRestaurants () {
-    return [...this._Restaurants]
-  }
-
-  getRestaurant (id:string) {
-    return {...this._Restaurants.find(p=>p.id === id)}
-  }
 
   //*Push methods
 
@@ -137,39 +123,5 @@ export class RestaurantService {
       this.fRestaurantChanged.emit(this.authService.User.favorites)
     } 
   }
-  deleteRestaurant (id: string) {
-    const updatedArray = this.authService.User.favorites.map(restaurantData =>{
-      return restaurantData.id
-    }).indexOf(id)
-    this.fRestaurantChanged.emit(this.authService.User.favorites.splice(updatedArray,1))
-  }
   
-  pushMerchantUpdate (rData : Restaurant) {
-    //arrData and userReference to find it and push it to merchant own restaurant
-    const arrData = this._Restaurants.find((arrRestaurant: Restaurant)=>{
-       return arrRestaurant.id === rData.id
-     })
-     const userReference = this.authService.listUsers.findIndex((userData: User)=> {
-      return userData.ownRestaurant === arrData
-     })
-     //arrIndex to find and replace it in the restaurants tab
-     const arrIndex = this._Restaurants.findIndex((arrRestaurant: Restaurant)=>{
-      return arrRestaurant.id === rData.id 
-    })
-    this._Restaurants.splice(arrIndex,1,rData)
-    this.authService.updateMerchant(userReference, rData)
-    this.RestaurantsChanged.emit(this._Restaurants)
-  }
-
-  pushMerchantData (rdata: Restaurant) {
-    const arrData = this._Restaurants.filter((arrRestaurant: Restaurant)=>{
-      return arrRestaurant.id === rdata.id 
-    }).slice(0,1)
-
-      if (arrData.length === 0) {
-      this._Restaurants.push(rdata)
-      this.RestaurantChanged.emit(rdata)
-    }
-    
-  }
 }

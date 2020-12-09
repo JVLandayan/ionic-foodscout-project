@@ -1,12 +1,12 @@
 export class Restaurant {
+    id: string;
     constructor(
-        public id: string, 
-        public rTitle: string, 
-        public rDescription: string, 
-        public rimageUrl: 
-            {imgMain: string,imgSub: {}[]},
-        public rRating : number,
-        public rPrice: 
-            {min:number, max:number},
-        public isFavorite: boolean) {}
+        public Title: string, 
+        public Description: string, 
+        public imageMain: string,
+        public rating : number,
+        public priceMax:number, 
+        public priceMin:number,
+        public rId: string
+        ) {}
 }

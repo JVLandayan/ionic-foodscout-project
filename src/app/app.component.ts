@@ -37,14 +37,12 @@ export class AppComponent implements OnInit {
   }
 
   LoggedInUser: User = {
+    id: null,
     authId: 3,
-    userId: null,
     email: null,
     username: null,
     password: null,
     favorites: null,
-    ownRestaurant: null,
-    tempUpdate: null
   }
 
   userAuth:string
@@ -57,12 +55,6 @@ export class AppComponent implements OnInit {
       if (this.LoggedInUser.authId == 1){
         this.panel="adminpanel"
       }
-      else if (this.LoggedInUser.authId == 3){
-        this.panel="merchantpanel"
-        this.restaurantService.pushMerchantData(this.LoggedInUser.ownRestaurant)
-      } 
-
-
     })
   }
 

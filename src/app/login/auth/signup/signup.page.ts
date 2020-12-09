@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { User } from '../User.model';
+import { AngularFireAuth } from '@angular/fire/auth'
+import firebase from 'firebase/app'
+import {AngularFirestore} from '@angular/fire/firestore'
 
 @Component({
   selector: 'app-signup',
@@ -14,23 +17,25 @@ export class SignupPage implements OnInit {
   emailAddress: string
   userName: string
   password: string
-  constructor(private authService:AuthService , private router: Router) { }
+  constructor(private authService:AuthService , private router: Router, public afAuth : AngularFireAuth,
+    public afStore: AngularFirestore) { }
 
   ngOnInit() {
   }
 
   onSubmit() {
+
+
     this.userData = {
+      id:null,
       authId: 2,
-      userId: Math.floor(Math.random() * 90000) + 10000,
       email: this.emailAddress,
       username: this.userName,
       password: this.password,
       favorites: [],
-      ownRestaurant:null,
-      tempUpdate : null
     }
-    this.authService.pushUser(this.userData)
+
+    this.authService.addUser(this.userData)
     this.router.navigateByUrl('auth')
   }
 }

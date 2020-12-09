@@ -23,30 +23,6 @@ export class ManagePage implements OnInit {
     speed: 400
   }
 
-  
-  //* Merchant Update Requests
-  loadedUsers: User[] = this.authService.listUsers.slice()
-  filtered = this.loadedUsers.filter(users=>{
-    return users.tempUpdate !== null
-     }
-   )
-   
-   onAccept(users: Restaurant) {
-      this.restaurantService.pushMerchantUpdate(users)
-      this.navCtrl.back()
-   }
-
-   onDeny(users: Restaurant) {
-    this.authService.updateMerchantDeny(users)
-    this.navCtrl.back()
-   }
-
-   //*Delete Posts
-   loadedPosts : Restaurant[] = this.restaurantService.recomRestaurants
-
-   onDelete(postData: Restaurant) {
-    
-   }
 
 
 
