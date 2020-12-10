@@ -1,0 +1,7 @@
+npm install
+ng build - important before add android
+ionic capacitor add android
+ionic capacitor copy android - copies www folder to native app and bundle it
+
+then finally
+ionic capacitor run android - automatically bundles app and runs android studio
