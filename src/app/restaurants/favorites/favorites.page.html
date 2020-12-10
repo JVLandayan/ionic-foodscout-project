@@ -10,11 +10,10 @@
 </ion-header>
 <ion-content class="ion-padding">
   <div class="uiFixer">
-    <h1 *ngIf="userFavorites.length === 0">Oops. You don't have any favorites</h1>
   <ion-card 
   *ngFor="let restaurants of userFavorites" 
   class="bgOverride ion-no-padding" 
-  [routerLink]="['/','restaurants','tabs','favorites',restaurants.id]"
+  [routerLink]="['/','restaurants','tabs','favorites',restaurants.rId]"
   >
       <img [src]="restaurants.imageMain">
       <ion-card-header>

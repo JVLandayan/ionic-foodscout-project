@@ -14,9 +14,9 @@ export class DiscoverPage implements OnInit {
 
 
   constructor(public afStore: AngularFirestore, public restaurantServ: RestaurantService) { }
-
-  public loadedRestau: Observable<Restaurant[]>
   loadedRestaurants: Restaurant[]
+  public loadedRestau: Observable<Restaurant[]>
+
 
   ngOnInit() {
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { AuthService } from 'src/app/login/auth/auth.service';
+import { User } from 'src/app/login/auth/User.model';
 import { Restaurant } from '../../restaurant.model';
 import { RestaurantService } from '../../restaurant.service';
 
@@ -18,16 +19,30 @@ export class DetailsPage implements OnInit {
 
   ngOnInit() {
     try {
-      
-      updatedRestaurant: Restaurant
       this.route.paramMap.subscribe(paramMap=> {
         if(!paramMap.has('restaurantId')) {
-          this.navCtrl.navigateBack('/restaurants/tabs/discover');
+          this.navCtrl.navigateBack('/restaurants/tabs/favorites');
         }
-  
-        this.restaurantServ.getRestau(paramMap.get('restaurantId')).subscribe((res)=>{
-          this.updatedRestaurant =  res //Details of restaurant
+
+        this.updatedRestaurant = this.authServ.userData.favorites.find((res:Restaurant)=>{
+          if (paramMap.get('restaurantId')===res.rId)
+          return true
+          else
+          return false
         })
+
+        this.authServ.getUser(this.authServ.userData.id).subscribe((result:User)=>{
+          let updateRestaurant = result.favorites.find((res:Restaurant)=>{
+            return res.id === result.id
+          })
+          console.log(updateRestaurant)
+          this.updatedRestaurant = updateRestaurant
+        })
+        
+
+        console.log(this.updatedRestaurant)
+        
+
       }
       )
         
@@ -37,15 +52,8 @@ export class DetailsPage implements OnInit {
 }
 
   onDelRestaurant () {
-    /*
-    this.restaurantServ.deleteRestaurant(this.restaurant.id)
-    this.navCtrl.back()
-    */
 
-    console.log(this.authServ.userData)
     this.authServ.deleteFavorite(this.authServ.userData,this.updatedRestaurant)
-    this.authServ.userData.userId
-    
     this.navCtrl.back()
   }
 }

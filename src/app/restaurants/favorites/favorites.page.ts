@@ -31,6 +31,12 @@ export class FavoritesPage implements OnInit {
       console.log(res.favorites)
     })
     
+    this.authServ.userChanged.subscribe((res:User)=>{
+        this.authServ.getUser(res.id).subscribe((res:User)=>{
+          this.userFavorites = res.favorites
+        })
+    })
+    
     
   }
 

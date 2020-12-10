@@ -11,6 +11,7 @@ import { Restaurant } from 'src/app/restaurants/restaurant.model';
 export class AuthService {
   private users: Observable<User[]>
   private userCollection: AngularFirestoreCollection<User> 
+  userChanged = new EventEmitter <User>()
 
   constructor(private afStore : AngularFirestore) {
     this.userCollection = this.afStore.collection<User>('users')
@@ -56,13 +57,19 @@ export class AuthService {
       */
 
       favorites: firebase.default.firestore.FieldValue.arrayUnion(restauData)
-     }).then(()=>console.log('Successfully Written')).catch(err=>console.log(err))
+     }).then(()=>console.log('Successfully Written')).catch(err=>console.log(err)).finally(()=>{
+      this.userChanged.emit(user)
+     })
    }
 
    deleteFavorite (user:User, restauData:Restaurant): Promise<void> {
-    return this.userCollection.doc(user.userId).update({         
+    return this.userCollection.doc(user.id).update({         
       favorites: firebase.default.firestore.FieldValue.arrayRemove(restauData)
-    }).then(()=>console.log('Successfully Written')).catch(err=>console.log(err))
+    }).then(()=>{
+      console.log('Successfully Deleted')
+    }).catch(err=>console.log(err)).finally(()=>{
+      this.userChanged.emit(user)
+    })
   }
 
 
@@ -76,7 +83,6 @@ export class AuthService {
     console.log(this._activatedUser.id)
    }
 
-  userChanged = new EventEmitter <User>()
   userlistChanged = new EventEmitter <User[]>()
   merchantPost = new EventEmitter <User>()
   private _userCredentials : User[] = [
