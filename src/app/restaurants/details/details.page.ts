@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { AuthService } from 'src/app/login/auth/auth.service';
 import { Restaurant } from '../restaurant.model';
@@ -16,7 +16,7 @@ export class DetailsPage implements OnInit {
   
 
 
-  constructor(private route: ActivatedRoute,private navCtrl: NavController, private restaurantServ: RestaurantService, private authServ: AuthService) { }
+  constructor(private router: Router,private route: ActivatedRoute,private navCtrl: NavController, private restaurantServ: RestaurantService, private authServ: AuthService) { }
 
   ngOnInit() {
 
@@ -42,8 +42,7 @@ export class DetailsPage implements OnInit {
   onFavRestaurant () {
     console.log(this.authServ.userData)
     this.authServ.addFavorites(this.authServ.userData,this.updatedRestaurant)
-    this.authServ.userData.userId
-    this.navCtrl.back()
+    this.router.navigate(['restaurants','tabs','favorites'])
   }
 
 }

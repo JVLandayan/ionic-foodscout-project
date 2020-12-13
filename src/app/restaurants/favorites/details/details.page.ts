@@ -15,8 +15,7 @@ import { RestaurantService } from '../../restaurant.service';
 export class DetailsPage implements OnInit {
   updatedRestaurant: Restaurant;
 
-  constructor(private route: ActivatedRoute,private navCtrl: NavController, private restaurantServ: RestaurantService,private router:Router, private authServ: AuthService ) { }
-
+  constructor(private route: ActivatedRoute,private navCtrl: NavController,private router:Router, private authServ: AuthService ) { }
   ngOnInit() {
     try {
       this.route.paramMap.subscribe(paramMap=> {
@@ -38,23 +37,17 @@ export class DetailsPage implements OnInit {
           console.log(updateRestaurant)
           this.updatedRestaurant = updateRestaurant
         })
-        
-
+    
         console.log(this.updatedRestaurant)
-        
-
       }
       )
-        
       } catch (error) {
-        console.log(error)
       }
 }
 
   onDelRestaurant () {
-
     this.authServ.deleteFavorite(this.authServ.userData,this.updatedRestaurant)
-    this.navCtrl.back()
+    this.router.navigate(['restaurants','tabs','home'])
   }
 }
 

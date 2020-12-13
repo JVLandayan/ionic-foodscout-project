@@ -114,7 +114,6 @@ export class RestaurantService {
     const compareId = this.authService.User.favorites.some(data=>{
       return data.id === dataRestaurant.id
     })
-
     if(compareId){
       this.ionicCtrl.favoriteOverflow()
     }
@@ -122,6 +121,5 @@ export class RestaurantService {
       this.authService.User.favorites.push(dataRestaurant)
       this.fRestaurantChanged.emit(this.authService.User.favorites)
     } 
-  }
-  
+  }  
 }

@@ -17,10 +17,13 @@ export class HomePage implements OnInit {
 
   public loadedRestau: Observable<Restaurant[]>
   loadedRestaurants: Restaurant[]
+  loadedCategories: Categories[]
 
   ngOnInit() {
 
     try {
+
+      this.loadedCategories = this.restaurantServ.categories
       this.loadedRestau = this.restaurantServ.getRestaus()
       this.loadedRestau.subscribe((res:Restaurant[])=>{
         this.loadedRestaurants = res
